@@ -31,53 +31,11 @@ class _ActiveOrdersState extends State<ActiveOrders> {
               color: Colors.grey[400],
               child: Container(
                 height: 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          'orders',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "rere",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: () => print('sold out'),
-                          child: Text('Sold out'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        TextButton(
-                          onPressed: () => print('confirm order'),
-                          child: Text('Confirm order'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                child:Text(orders[0]),
               ),
             );
           }),
+          
     );
   }
 }
