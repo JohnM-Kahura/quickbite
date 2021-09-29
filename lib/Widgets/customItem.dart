@@ -121,8 +121,8 @@ customDialogue(BuildContext context, String title,String action) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //TODO:Try using a statefull widget in the futre allow user to add number dynamicaly
-                      Container(
+                    //TODO:Try using a statefull widget in the futre allow user to add number dynamicaly
+                    Container(
                         height: 50,
                         width: 100,
                         child: TextField(
