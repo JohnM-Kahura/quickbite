@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quickbite/Config/colors.dart';
 import 'package:quickbite/Screens/Home/Home.dart';
 
 enum MobileVerificationState {
@@ -49,138 +51,176 @@ class _AuthenticationState extends State<Authentication> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: showLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-              ? Stack(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height,
-                      color: Color(0XFFF4F1DE),
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          color: Colors.blue,
-                          height: 100,
-                          child: Text(
-                              'Enter the Verification Code sent to your phone'),
-                        ),
-                        TextField(
-                          controller: phoneController,
-                          autofocus: true,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
-                          autocorrect: false,
-                          cursorColor: Colors.blue,
-                          cursorRadius: Radius.circular(4.0),
-                          // cursorWidth: 15,
-                          decoration: InputDecoration(
-                            hintText: 'Phone Number',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.red,
-                                width: 1,
-                                style: BorderStyle.solid,
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: showLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.transparent,
+                ),
+              )
+            : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
+                ? Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height,
+                        color: darkishColor,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 50),
+                            // color: Colors.blue,
+                            height: 100,
+                            child: Text(
+                              'Karibu Burger',
+                              style: GoogleFonts.barlow(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              TextField(
+                                style: GoogleFonts.barlow(color: Colors.white),
+                                controller: phoneController,
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                autocorrect: false,
+                                cursorColor: Colors.white,
+                                cursorRadius: Radius.circular(4.0),
+                                // cursorWidth: 15,
+                                decoration: InputDecoration(
+                                  hintText: 'Phone number',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  setState(() {
+                                    showLoading = true;
+                                  });
+                                  await _auth.verifyPhoneNumber(
+                                      phoneNumber: phoneController.text,
+                                      verificationCompleted:
+                                          (phoneAuthCredential) async {
+                                        setState(() {
+                                          showLoading = false;
+                                        });
+                                        // signInwithPhoneCredentials(phoneAuthCredential);
+                                      },
+                                      verificationFailed:
+                                          (verificationFailed) async {
+                                        // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(verificationFailed.message.toString())));
+                                        Scaffold.of(context).showSnackBar(
+                                            SnackBar(
+                                                content: Text(verificationFailed
+                                                    .message
+                                                    .toString())));
+                                        setState(() {
+                                          showLoading = false;
+                                        });
+                                      },
+                                      codeSent: (verificationId,
+                                          resendingToken) async {
+                                        setState(() {
+                                          showLoading = false;
+                                          currentState = MobileVerificationState
+                                              .SHOW_OTP_FORM_STATE;
+                                          verficationId = verificationId;
+                                        });
+                                      },
+                                      codeAutoRetrievalTimeout:
+                                          (verficationId) async {});
+                                },
+                                child: Text(
+                                  'Login',
+                                  style: GoogleFonts.barlow(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Stack(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height,
+                        color: darkishColor,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            // color: Colors.blue,
+                            height: 100,
+                            child: Text(
+                              'A verfication Code was sent to the number you provided.If you did not recive it please go back and try again',
+                              style: GoogleFonts.barlow(
+                                color: Colors.white,
+                                fontSize: 20,
                               ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            setState(() {
-                              showLoading = true;
-                            });
-                            await _auth.verifyPhoneNumber(
-                                phoneNumber: phoneController.text,
-                                verificationCompleted:
-                                    (phoneAuthCredential) async {
-                                  setState(() {
-                                    showLoading = false;
-                                  });
-                                  // signInwithPhoneCredentials(phoneAuthCredential);
-                                },
-                                verificationFailed: (verificationFailed) async {
-                                  // _scaffoldKey.currentState!.showSnackBar(SnackBar(content: Text(verificationFailed.message.toString())));
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(verificationFailed.message
-                                          .toString())));
-                                  setState(() {
-                                    showLoading = false;
-                                  });
-                                },
-                                codeSent:
-                                    (verificationId, resendingToken) async {
-                                  setState(() {
-                                    showLoading = false;
-                                    currentState = MobileVerificationState
-                                        .SHOW_OTP_FORM_STATE;
-                                    verficationId = verificationId;
-                                  });
-                                },
-                                codeAutoRetrievalTimeout:
-                                    (verficationId) async {});
-                          },
-                          child: Text('Continue'),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue),
+                          TextField(
+                                style: GoogleFonts.barlow(color: Colors.white),
+                                controller: otpController,
+                                autofocus: true,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                autocorrect: false,
+                                cursorColor: Colors.white,
+                                cursorRadius: Radius.circular(4.0),
+                                // cursorWidth: 15,
+                                decoration: InputDecoration(
+                                  hintText: 'Enter Verificaton Code',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          TextButton(
+                            onPressed: () async {
+                              PhoneAuthCredential phoneAuthCredential =
+                                  PhoneAuthProvider.credential(
+                                      verificationId: verficationId,
+                                      smsCode: otpController.text);
+                              //signing in the user to firebase
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              signInwithPhoneCredentials(phoneAuthCredential);
+                            },
+                            child: Text('Verify',style: GoogleFonts.barlow(color:Colors.black),),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              : Column(
-                  children: [
-                    Container(
-                      color: Colors.blue,
-                      height: 100,
-                      child: Text('quickbite'),
-                    ),
-                    TextField(
-                      controller: otpController,
-                      autofocus: true,
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-
-                      autocorrect: false,
-                      cursorColor: Colors.blue,
-                      cursorRadius: Radius.circular(4.0),
-
-                      // cursorWidth: 15,
-                      decoration: InputDecoration(
-                        hintText: 'Verification Code',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 1,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
+                        ],
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        PhoneAuthCredential phoneAuthCredential =
-                            PhoneAuthProvider.credential(
-                                verificationId: verficationId,
-                                smsCode: otpController.text);
-                        //signing in the user to firebase
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        signInwithPhoneCredentials(phoneAuthCredential);
-                      },
-                      child: Text('Verify'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+      ),
     );
   }
 }
