@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quickbite/Config/colors.dart';
 import 'package:quickbite/Screens/Account/Account.dart';
 import 'package:flutter/material.dart';
 import 'package:quickbite/Screens/Auth/Phone_Auth.dart';
@@ -21,13 +22,14 @@ class _HomeState extends State<Home> {
     return Scaffold(
       
       appBar: AppBar(
+        
         elevation: 0,
         title: Center(
             child: Text(
           'Home',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         )),
-        backgroundColor: Colors.tealAccent,
+        backgroundColor: darkishColor,
         actions: [
           IconButton(
             onPressed: () {

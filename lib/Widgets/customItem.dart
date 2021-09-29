@@ -186,6 +186,7 @@ customDialogue(BuildContext context, String title,String action) {
                             }else{
                                addBoughtItem(title, number),
                              print('buy order succesful'),
+                             
                              startTransaction(30.0, '254746443944')
                             }
                             }else{

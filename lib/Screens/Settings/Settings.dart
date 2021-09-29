@@ -11,6 +11,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // add this in the next update
       appBar:AppBar(title:Text('Settings'))
     );
   }
