@@ -10,28 +10,54 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  final _auth=FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? _user;
+
   @override
   Widget build(BuildContext context) {
-
-
-    
+    _user = _auth.currentUser;
     return Scaffold(
         appBar: AppBar(
           title: Text("Account"),
           actions: [
             TextButton(
-              onPressed: () async{
+              onPressed: () async {
                 _auth.signOut();
                 Navigator.of(context).pop();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Authentication()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Authentication()));
               },
-              child: Text('Log Out',style: TextStyle(color: Colors.white),),
+              child: Text(
+                'Log Out',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
         body: Center(
-          child: Text('account'),
+          child: Card(
+            
+            child: Container(
+              height:150,
+              width: MediaQuery.of(context).size.width,
+              
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                   'PhoneNumber',
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top :20),
+                    child: Text(
+                      _user!.phoneNumber.toString(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ));
   }
 }
