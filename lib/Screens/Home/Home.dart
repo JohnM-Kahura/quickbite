@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quickbite/Config/colors.dart';
 import 'package:quickbite/Screens/Account/Account.dart';
 import 'package:flutter/material.dart';
@@ -15,20 +16,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  FirebaseAuth _auth=FirebaseAuth.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
   bool show_log_out = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
-        
         elevation: 0,
         title: Center(
-            child: Text(
-          'Home',
-          style: TextStyle(color: Colors.white),
-        )),
+          child: Text(
+            'Home',
+            style: GoogleFonts.barlow(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         backgroundColor: darkishColor,
         actions: [
           IconButton(
@@ -36,7 +39,6 @@ class _HomeState extends State<Home> {
               setState(() {
                 show_log_out = !show_log_out;
               });
-             
             },
             icon: Icon(Icons.person),
           ),
@@ -52,29 +54,37 @@ class _HomeState extends State<Home> {
                   context, itemsOnSale[index], itemsImages[index]);
             },
           ),
-          if(show_log_out)
-          Positioned(
-            top: 0,
-            right: 0,
-              child: Card(
-                margin:EdgeInsets.only(top:0),
-            child: Container(
-             
-              child: Column(
-                children: [
-                  TextButton(onPressed: (){
-                   
-                    Navigator.push(context,MaterialPageRoute(builder:(context)=>Account()));
-                  }, child:Text('Profile')),
-                  TextButton(onPressed: (){
-                    _auth.signOut();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Authentication()));
-                    Navigator.of(context).pop();
-                  }, child:Text('LogOut')),
-                ],
-              ),
-            ),
-          )),
+          if (show_log_out)
+            Positioned(
+                top: 0,
+                right: 0,
+                child: Card(
+                  margin: EdgeInsets.only(top: 0),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Account()));
+                            },
+                            child: Text('Profile')),
+                        TextButton(
+                            onPressed: () {
+                              _auth.signOut();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Authentication()));
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('LogOut')),
+                      ],
+                    ),
+                  ),
+                )),
         ],
       ),
     );
