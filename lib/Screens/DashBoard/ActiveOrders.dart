@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:quickbite/Config/colors.dart';
 class ActiveOrders extends StatefulWidget {
   const ActiveOrders({Key? key}) : super(key: key);
 
@@ -25,17 +25,34 @@ class _ActiveOrdersState extends State<ActiveOrders> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: orders.length,
+          itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return Card(
               color: Colors.grey[400],
               child: Container(
-                height: 100,
-                child:Text(orders[0]),
+                // height: 100,
+                child:Card(child:Container(child:Column(children:[
+                  Row(children:[Container(child:Text('Name:',style:dashboardStyle),),Container(child:Text('John'),),]),
+                  Row(children:[Container(child:Text('Phone:'),),Container(child:Text('0746443944'),),]),
+                  Row(mainAxisAlignment:MainAxisAlignment.center,children:[Container(child:Text('Orders'),),]),
+                  Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[Text('Burger:'),Text('3'),Text('Smokie:'),Text('8'),Text('Kebab:'),Text('5'),Text('Smocha:'),Text('1'),]),
+                  Row(mainAxisAlignment:MainAxisAlignment.center,children:[Text('Order Status')]),
+                  Row(mainAxisAlignment:MainAxisAlignment.spaceAround,children:[TextButton(onPressed:(){},child:Text('Sold out')),TextButton(onPressed:(){},child:Text('Take order'))]),
+                ],),),),
               ),
             );
           }),
-          
+         floatingActionButton:FloatingActionButton(
+           onPressed:(){
+            CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('orders');
+    collectionReference.snapshots().listen((snapshot) {
+      orders = snapshot.docs;
+      print(orders[0]);
+    }); 
+           },
+           child:Text('get')
+         ) 
     );
   }
 }

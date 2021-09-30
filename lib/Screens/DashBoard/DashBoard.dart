@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickbite/Screens/DashBoard/ActiveOrders.dart';
 import 'package:quickbite/Screens/DashBoard/History.dart';
-
+import 'package:quickbite/Config/colors.dart';
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
 
@@ -20,6 +20,7 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:darkishColor,
         title: Text('Admin DashBoard'),
       ),
       backgroundColor: Colors.white,
