@@ -180,26 +180,26 @@ class _AuthenticationState extends State<Authentication> {
                             ),
                           ),
                           TextField(
-                                style: GoogleFonts.barlow(color: Colors.white),
-                                controller: otpController,
-                                autofocus: true,
-                                keyboardType: TextInputType.number,
-                                textInputAction: TextInputAction.done,
-                                autocorrect: false,
-                                cursorColor: Colors.white,
-                                cursorRadius: Radius.circular(4.0),
-                                // cursorWidth: 15,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter Verificaton Code',
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.white,
-                                      width: 1,
-                                    ),
-                                  ),
+                            style: GoogleFonts.barlow(color: Colors.white),
+                            controller: otpController,
+                            autofocus: true,
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            autocorrect: false,
+                            cursorColor: Colors.white,
+                            cursorRadius: Radius.circular(4.0),
+                            // cursorWidth: 15,
+                            decoration: InputDecoration(
+                              hintText: 'Enter Verificaton Code',
+                              hintStyle: TextStyle(color: Colors.white),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 1,
                                 ),
                               ),
+                            ),
+                          ),
                           TextButton(
                             onPressed: () async {
                               PhoneAuthCredential phoneAuthCredential =
@@ -208,9 +208,19 @@ class _AuthenticationState extends State<Authentication> {
                                       smsCode: otpController.text);
                               //signing in the user to firebase
                               FocusScope.of(context).requestFocus(FocusNode());
-                              signInwithPhoneCredentials(phoneAuthCredential);
+                              try {
+                                signInwithPhoneCredentials(phoneAuthCredential);
+                                Navigator.of(context).pop;
+                              } catch (e) {
+                                print(e.toString());
+                                Scaffold.of(context).showSnackBar(
+                                    SnackBar(content: Text(e.toString())));
+                              }
                             },
-                            child: Text('Verify',style: GoogleFonts.barlow(color:Colors.black),),
+                            child: Text(
+                              'Verify',
+                              style: GoogleFonts.barlow(color: Colors.black),
+                            ),
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(Colors.white),

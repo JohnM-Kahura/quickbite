@@ -220,16 +220,20 @@ customDialogue(BuildContext context, String title,String action) {
 
 addOrder(String orderItem,String number) {
 Map<String,dynamic> neworder={orderItem:number};
-
+User? _user=FirebaseAuth.instance.currentUser;
 //TODO:wrap in try catch block
-  CollectionReference collectionReference=FirebaseFirestore.instance.collection('orders');
-  collectionReference.add(neworder);
+  // CollectionReference collectionReference=FirebaseFirestore.instance.collection('orders');
+  // collectionReference.doc(_user!.phoneNumber).set(neworder);
+  CollectionReference collectionReference=FirebaseFirestore.instance.collection('Phone');
+  collectionReference.doc(_user!.phoneNumber).collection('Orders').add(neworder);
 }
 addBoughtItem(String itemBought,String number) {
 Map<String,dynamic> newItemBought={itemBought:number};
-
-  CollectionReference collectionReference=FirebaseFirestore.instance.collection('Bought');
-  collectionReference.add(newItemBought);
+User? _user=FirebaseAuth.instance.currentUser;
+  // CollectionReference collectionReference=FirebaseFirestore.instance.collection('Bought');
+  // collectionReference.doc(_user!.phoneNumber).set(newItemBought);
+  CollectionReference collectionReference=FirebaseFirestore.instance.collection('Phone');
+  collectionReference.doc(_user!.phoneNumber).collection('Bought').add(newItemBought);
 }
 
 makeOrder(number) {

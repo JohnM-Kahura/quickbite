@@ -25,30 +25,35 @@ class _DashBoardState extends State<DashBoard> {
       ),
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: darkishColor,
         currentIndex: _selectedIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+       
+        selectedLabelStyle: TextStyle(color: Colors.white),
+        unselectedLabelStyle: TextStyle(color: Colors.white),
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.airplanemode_active,
-              color: Colors.grey[300],
+              Icons.local_pizza,
+              color: Colors.grey,
             ),
-            label: 'Active Orders',
+            label: 'Orders',
+            
+            // title: Text('Active'),
             activeIcon: Icon(
-              Icons.airplanemode_active,
+              Icons.local_pizza,
               color: Colors.white,
             ),
           ),
           BottomNavigationBarItem(
+           
             icon: Icon(
               Icons.history,
-              color: Colors.black,
+              color: Colors.grey ,
             ),
             label: 'History',
             activeIcon: Icon(
               Icons.history,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ],
