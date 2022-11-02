@@ -1,16 +1,13 @@
-# quickbite
+# Quickbite
+## Quickbite is a food ordering app written in Flutter
+### It helps people around Baraton center to order Kebabs and burgers.
+## Screeshots of the app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Phone number authentication](https://github.com/JohnM-Kahura/quickbite/blob/master/phone_authentication.jpeg)
+![Phone number verification](https://github.com/JohnM-Kahura/quickbite/blob/master/phone_verification.jpeg)
+![Home](https://github.com/JohnM-Kahura/quickbite/blob/master/home.jpeg)
+![Buy a burger](https://github.com/JohnM-Kahura/quickbite/blob/master/buyaction.jpeg)
+![Mpesa pop-up](https://github.com/JohnM-Kahura/quickbite/blob/master/mpesa_popup.jpeg)
+![Drawer](https://github.com/JohnM-Kahura/quickbite/blob/master/drawer.jpeg)
+![Orders](https://github.com/JohnM-Kahura/quickbite/blob/master/orders_dashboard.jpeg)
+![Purchases](https://github.com/JohnM-Kahura/quickbite/blob/master/purchases_dashboard.jpeg)
